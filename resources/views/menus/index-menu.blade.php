@@ -60,7 +60,7 @@
                 <td>{{ $menu->deskripsi ?? '' }}</td>
                 <td>
                     @if($menu->gambar)
-                    <img src="{{ asset('storage/' . $menu->gambar) }}" width="100">
+                    <img src="{{ asset($menu->gambar) }}" width="100">
                     @else
                     <span class="text-muted">Tidak ada gambar</span>
                     @endif
@@ -114,7 +114,7 @@
                 <td>${menu.deskripsi ?? ''}</td>
                 <td>
                     ${menu.gambar 
-                        ? `<img src="/storage/${menu.gambar}" alt="Gambar Menu" width="100">`
+                        ? `<img src="/${menu.gambar}" alt="Gambar Menu" width="100">`
                         : `<span class="text-muted">Tidak ada gambar</span>`}
                 </td>
                 <td>

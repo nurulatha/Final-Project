@@ -59,7 +59,9 @@ class MenuController extends Controller
         $validatedData['kantin_id'] = $kantin->id;
 
         if ($request->hasFile('gambar')) {
-            $validatedData['gambar'] = $request->file('gambar')->store('menus', 'public');
+            $filename = time() . '_' . $request->file('gambar')->getClientOriginalName();
+            $request->file('gambar')->move(public_path('menus'), $filename);
+            $validatedData['gambar'] = 'menus/' . $filename;
         }
 
         Menu::create($validatedData);
@@ -119,11 +121,14 @@ class MenuController extends Controller
         $data = $request->except('gambar');
 
         if ($request->hasFile('gambar')) {
-            if ($menu->gambar && file_exists(storage_path('app/public/' . $menu->gambar))) {
-                unlink(storage_path('app/public/' . $menu->gambar));
+            if ($menu->gambar && file_exists(public_path($menu->gambar))) {
+                unlink(public_path($menu->gambar));
             }
 
-            $data['gambar'] = $request->file('gambar')->store('menus', 'public');
+            $filename = time() . '_' . $request->file('gambar')->getClientOriginalName();
+            $request->file('gambar')->move(public_path('menus'), $filename);
+
+            $data['gambar'] = 'menus/' . $filename;
         }
 
         $menu->update($data);
