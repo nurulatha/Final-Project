@@ -11,7 +11,7 @@
             <p><strong>Deskripsi: </strong>{{ $menu->deskripsi }}</p>
             <p>
                 @if($menu->gambar)
-                <img src="{{ asset('storage/' . $menu->gambar) }}" alt="Gambar Menu" width="100">
+                <img src="{{ asset('storage/'.$menu->gambar) }}" width="100" class="mt-2">
                 @else
                 <span class="text-muted">Tidak ada gambar</span>
                 @endif
