@@ -57,10 +57,22 @@ class PesananController extends Controller
      */
     public function show(string $id)
     {
-        $pesanan = Pesanan::with('detailPesanans.menu')->findOrFail($id);
+        $pesanan = Pesanan::with('detailPesanans.menu.kantin')->findOrFail($id);
+
+        $currentUserId = auth()->id();
+
+        $isBuyer = $pesanan->user_id == $currentUserId;
+
+        $kantinOwnerId = $pesanan->detailPesanans->first()->menu->kantin->user_id ?? null;
+        $isOwner = $kantinOwnerId == $currentUserId;
+
+        if (!($isBuyer || $isOwner)) {
+            abort(403, 'Unauthorized access.');
+        }
 
         return view('pesanans.detail-pesanan', compact('pesanan'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

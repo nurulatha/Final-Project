@@ -73,7 +73,11 @@ class MenuController extends Controller
      */
     public function show(string $id)
     {
-        $menu = Menu::findOrFail($id);
+        $menu = Menu::with('kantin')->findOrFail($id);
+
+        if ($menu->kantin->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access.');
+        }
         return view('menus.detail-menu', compact('menu'));
     }
 
@@ -82,10 +86,17 @@ class MenuController extends Controller
      */
     public function edit(string $id)
     {
-        $menu = Menu::findOrFail($id);
-        $kantin = Kantin::where('user_id', Auth::id())->first();
+        $menu = Menu::with('kantin')->findOrFail($id);
 
-        $kategoris = $kantin ? Kategori::where('kantin_id', $kantin->id)->get() : collect();
+        if ($menu->kantin->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access.');
+        }
+
+        $kantin = Kantin::where('user_id', auth()->id())->first();
+
+        $kategoris = $kantin
+            ? Kategori::where('kantin_id', $kantin->id)->get()
+            : collect();
 
         return view('menus.form-menu', compact('menu', 'kategoris'));
     }

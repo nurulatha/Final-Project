@@ -58,7 +58,11 @@ class KategoriController extends Controller
      */
     public function show(string $id)
     {
-        $kategori = Kategori::findOrFail($id);
+        $kategori = Kategori::with('kantin')->findOrFail($id);
+
+        if ($kategori->kantin->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access.');
+        }
         return view('kategoris.detail-kategori', compact('kategori'));
     }
 
@@ -67,7 +71,11 @@ class KategoriController extends Controller
      */
     public function edit(string $id)
     {
-        $kategori = Kategori::findOrFail($id);
+        $kategori = Kategori::with('kantin')->findOrFail($id);
+
+        if ($kategori->kantin->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access.');
+        }
         return view('kategoris.form-kategori', compact('kategori'));
     }
 
