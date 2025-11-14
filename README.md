@@ -2,6 +2,14 @@
 
 <p align="center"><a href="https://drive.google.com/file/d/1txu0o--MuUmm-vQW4qDain6fwUZBMQUo/view?usp=drive_link" target="_blank"><img src="https://drive.google.com/uc?export=view&id=1txu0o--MuUmm-vQW4qDain6fwUZBMQUo" width="600" alt="ERD Sistem"></a></p>
 
+## Link Project
+
+<p>
+  <a href="https://final-project-production-3706.up.railway.app/" target="_blank">
+    Link Website
+  </a>
+</p>
+
 ## Link Video
 
 <p>
