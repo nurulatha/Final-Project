@@ -69,7 +69,7 @@ class KantinController extends Controller
         $request->validate([
             'nama_kantin' => 'required|max:100',
             'lokasi' => 'required|max:255',
-            'user_id' => 'required|exists:users,id|unique:kantins,user_id'
+            'user_id' => 'required|exists:users,id|unique:kantins,user_id,' . $id
         ]);
         $kantin = Kantin::findOrFail($id);
         $kantin->update($request->all());
